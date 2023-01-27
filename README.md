@@ -1,4 +1,4 @@
-## Mastering `Pointers` In `C` & `C++`
+## Master `Pointers` In `C` & `C++`
 
 #### By _Ahmed Mohamed Yousry_ (AKA _Ahmed Arafat_)
 
@@ -18,6 +18,7 @@
 12. `Pointers` As Function Return
 13. Function `Pointers`
 14. Function `Pointers` & Callbacks
+15. What Is Memory Leak ?
 
 <hr>
 
@@ -1057,4 +1058,229 @@ int main() {
 ````
 > In  Function `Pointers` & Callbacks part, we will see the real use-cases of function `pointer`
 
-### Function `Pointers` & Callbacks 
+### Function `Pointers` & Callbacks
+
+````cpp
+#include <bits/stdc++.h>
+using namespace std;
+void Swap(int *a, int *b) {
+    int c = *a;
+    *a = *b;
+    *b = c;
+}
+void BubbleSort(int *arr, int n) {
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (arr[j] > arr[j + 1]) Swap(&arr[j], &arr[j + 1]);
+        }
+    }
+}
+int main() {
+    int arr[] = {5, 4, 3, 2, 1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    BubbleSort(arr, n);
+    for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+}
+````
+
+````cpp
+#include <bits/stdc++.h>
+using namespace std;
+void Swap(int *a, int *b) {
+    int c = *a;
+    *a = *b;
+    *b = c;
+}
+int Compare(int a, int b)
+{
+    return a > b ? 1 : 0 ;
+}
+
+void BubbleSort(int *arr, int n, int (*ptr)(int,int)) {
+    for (int i = 0; i < n; i++) // 5 4 3 2 1
+    {
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (ptr(arr[j],arr[j + 1]) > 0) Swap(&arr[j], &arr[j + 1]);
+        }
+    }
+}
+
+int main() {
+    int arr[] = {5, 4, 3, 2, 1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    BubbleSort(arr, n,Compare);
+    for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+}
+````
+
+````cpp
+#include <bits/stdc++.h>
+using namespace std;
+void Swap(int *a, int *b) {
+    int c = *a;
+    *a = *b;
+    *b = c;
+}
+int CompareASC(int a, int b)
+{
+    return a > b ? 1 : 0 ;
+}
+
+int CompareDESC(int a, int b)
+{
+    return a < b ? 1 : 0 ;
+}
+
+
+int CompareABS(int a, int b)
+{
+    return abs(a) > abs(b) ? 1 : 0 ;
+}
+
+void BubbleSort(int *arr, int n, int (*ptr)(int,int)) {
+    for (int i = 0; i < n; i++) // 5 4 3 2 1
+    {
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (ptr(arr[j],arr[j + 1]) > 0) Swap(&arr[j], &arr[j + 1]);
+        }
+    }
+}
+
+int main() {
+    int arr[] = {5, 4, 3, 2, 1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    BubbleSort(arr, n,CompareDESC);
+    //BubbleSort(arr, n,CompareASC);
+    //BubbleSort(arr, n,CompareABS);
+    for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+}
+````
+
+````cpp
+int MyCompare(const void *a, const void *b)
+{
+    int A = *((int*)a); // Typecasting to int then getting the value
+    int B = *((int*)b); // Typecasting to int then getting the value
+    // it will return a positive number if A ranked higher than B (In this case it will swap as returned number is positive)
+    // it will return a negative number if A ranked lower than B
+    // it will return ZERO if A has the same rank as B
+    return A-B;
+    //return B-A;
+    //return abs(A)-abs(B);
+}
+int main() {
+    int arr[] = {5, 4, 3, 2, 1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    qsort(arr,n,sizeof(int),MyCompare);
+    for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+}
+````
+> VIP Note: The advantage of using function pointer in the above codes is that I'm not
+> modifying any lines in the function `BubbleSort()`, the only thing I'm changing is while calling this function
+> in `main()` like this `BubbleSort(arr, n,CompareDESC);`, I'm just changing the name of passed function so then 
+> in this case the function pointer `ptr` will refer to the passed function allowing me to just call that function using my pointer `ptr`
+> (again without modifying any code in function `BubbleSort()), this will help me making my code reusable 
+> & becoming a `clean code`
+
+### What Is Memory Leak ? 
+- This phenomenon happened due to improper use of dynamic memory (memory in the heap)
+- As we said before we can free memory in heap using function `free()` in `C` Language & operator `delete` in `C++`
+
+- Let's create a simple game called `Simple Betting Game`
+- The computer will shuffle `Jack Queen King` cards
+- The player has to guess the position of the `Queen`
+- If he wins, he takes `3 * bet`
+- If he looses, he will lose the bet amount
+- Player has `100 L.E` initially 
+
+<br>
+
+- Let's write the code of this game :)
+````cpp
+// Created by Ahmed Arafat on 1/10/2023.
+#include <bits/stdc++.h>
+using namespace std;
+int cash = 100, bet;
+void play() {
+    printf("Shuffling The Cards .....\n");
+    Here:
+    printf("Please Enter The Position Of The Queen 1,2 or 3");
+    int user_pos, pos;
+    scanf("%d", &user_pos);
+    if (!(user_pos >= 1 && user_pos <= 3)) {
+        printf("Please Enter A Valid Number\n");
+        goto Here;
+    }
+    user_pos--;
+    srand(time(NULL));
+    pos = rand() % 3;
+    if (pos == user_pos) {
+        printf("You Win ! Congratulations\n");
+        cash += 3 * bet;
+    } else {
+        printf("Wrong Guessing The Position Of The Queen Was %d\n", pos + 1);
+        cash -= bet;
+    }
+    printf("Your Cash Now : %d L.E\n", cash);
+}
+
+int main() {
+    while (cash) {
+        printf("What Is Your Bet?\n");
+        scanf("%d", &bet);
+        if (bet > cash) printf("You Only Have %d L.E\n", cash);
+        else if (bet <= 0) printf("Enter A Positive Number Please\n");
+        else
+        {
+            play();
+            printf("\n*************************\n");
+        }
+    }
+}
+````
+- You can modify the function `play()` like this
+````cpp
+void play() {
+    char Cards[] = {'Q', 'K', 'J'};
+    printf("Shuffling The Cards .....\n");
+    Here:
+    printf("Please Enter The Position Of The Queen 1,2 or 3");
+    int user_pos, pos;
+    scanf("%d", &user_pos);
+    if (!(user_pos >= 1 && user_pos <= 3)) {
+        printf("Please Enter A Valid Number\n");
+        goto Here;
+    }
+    srand(time(NULL));
+    for (int i = 0; i < 10; i++) {
+        int x = rand() % 3;
+        int y = rand() % 3;
+        int temp = Cards[x];
+        Cards[x] = Cards[y];
+        Cards[y] = Cards[temp];
+    }
+    if (Cards[--user_pos] == 'Q') {
+        printf("You Win ! Congratulations\n");
+        cash += 3 * bet;
+    } else {
+        printf("Wrong Guessing \n");
+        cash -= bet;
+    }
+    printf("Your Cash Now : %d L.E\n", cash);
+}
+````
+> The memory consumption from the above code will be the same as time run, but if we modified it to be something like this
+````cpp
+void play() {
+    char *Cards = (char *) malloc(3 * sizeof(char));
+    Cards[0] = 'Q';
+    Cards[1] = 'K';
+    Cards[2] = 'J';
+        ......
+        ......
+}
+````
+> Each time we call function `play()` we allocate a memory in heap, which will cause a memory lack
+> because we are not deallocating this block of memory, to solve this we have to write `free(Cards)`
+> at the end of the function `play()`
