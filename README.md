@@ -19,10 +19,11 @@
 13. Function `Pointers`
 14. Function `Pointers` & Callbacks
 15. What Is Memory Leak ?
+16. Reference
 
 <hr>
 
-### `Pointers` : They are variables that store the address of another variables
+### 1. `Pointers` : They are variables that store the address of another variables
 
 ````cpp
 int a;
@@ -65,7 +66,7 @@ double *p1; //pointer to double
 - float : 4 bytes
 ````
 
-### Let's play a little with `pointers`
+### 2. Let's play a little with `pointers`
 
 ````cpp
 #include <bits/stdc++.h>
@@ -95,7 +96,7 @@ int main()
 }
 ````
 
-### Why `Pointers` are strong types (must specify  the data type of the variable the pointer will refer to) ?
+### 3. Why `Pointers` are strong types (must specify  the data type of the variable the pointer will refer to) ?
 
 ### Why not generic type for `Pointers`?
 
@@ -184,7 +185,7 @@ int main()
 <hr>
 <hr>
 
-### `Void Pointer` : it is used to just store the first address of a variable
+### 4. `Void Pointer` : it is used to just store the first address of a variable
 
 #### Without being able to `dereference` or perform any `arithmetic` operation (`+`)
 
@@ -205,7 +206,7 @@ int main()
 
 > `void` pointers have some use cases will be discussed later
 
-### `Pointer` To `Pointer`
+### 5. `Pointer` To `Pointer`
 
 - Let's see the following example:
 
@@ -232,7 +233,7 @@ int main()
 <img src="Pics/1.png" width="auto" height="auto">
 <img src="Pics/2.png" width="auto" height="auto">
 
-### `Pointers` as function arguments (Call By Reference)
+### 6. `Pointers` as function arguments (Call By Reference)
 
 - Following code is an example of `Call By Value`
 
@@ -291,9 +292,9 @@ int main()
 }
 ````
 
-### `Pointers` And `Arrays`
+### 7. `Pointers` And `Arrays`
 
-- Observe the folowing code:
+- Observe the following code:
 
 ````cpp
 int main()
@@ -319,7 +320,7 @@ int main()
 > Value At index `i` - `arr[i]` or `*(arr+i)` <br>
 > Note: `p++` is allowed, while `arr++` is not allowed
 
-### Array As Function Arguments
+### 8. Array As Function Arguments
 
 - Observe the following code:
 
@@ -362,7 +363,7 @@ int main() {
        this `Double(arr, sz);`
     4. Lines `*(arr + i) = *(arr + i) * 2;` & `arr[i] = arr[i] * 2;` have the same meaning
 
-### Character `Arrays` & `Pointers`
+### 9. Character `Arrays` & `Pointers`
 
 - In `C` language, size of array must be `>=` number of characters in
   a string `+1`
@@ -560,7 +561,7 @@ while (c[i] != '\0')
 while (*(c+i) != '\0')
 ````
 
-### Character `Arrays` & `Pointers` - Part 2
+### 9.2 Character `Arrays` & `Pointers` - Part 2
 
 - You can write an array of characters like this
 
@@ -616,9 +617,12 @@ int main() {
 
 > Now we can read `C[]` in `MyPrintFun1()` but not writing in it
 
-### `Pointers` & Multi-Dimensional `Arrays`
+### 10. `Pointers` & Multi-Dimensional `Arrays`
 
-### `Pointers` & Dynamic Memory Allocation
+<h1>Working On It</h1>
+
+
+### 11. `Pointers` & Dynamic Memory Allocation
 
 - Application's memory can be divided into 4 segments
     - Code (Text)
@@ -760,7 +764,7 @@ int main() {
 > `size_t` is a datatype that stores positive integer only like `unsigned`,
 > the size cannot be 0 or any negative value <br>
 
-> Remember: you cannot dereferencing a void pointer as it is a generic pointer type, so that we have to typecast it
+> Remember: you cannot de-referencing a void pointer as it is a generic pointer type, so that we have to typecast it
 
 > In `realloc` function, if the new size is greater than the old one, here the compiler see if it can extend the old
 > block it will do that
@@ -873,7 +877,7 @@ Address of arr -9430176 , Address of arr2 -9430176
 > `Note #1` : `arr = (int*) realloc(arr,0);` is like saying `free(arr)` <br>
 > `Note #2` : `int *arr = (int*) realloc(NULL,n*size(int));` is like saying `int *arr = (int*) malloc(n*size(int));`
 
-### `Pointers` As Function Return
+### 12. `Pointers` As Function Return
 
 - Pointers are just another data type, so we can use them as a return type for a function
 
@@ -969,7 +973,7 @@ int main() { // Calling function
   as `Add()` sooner or later will be deallocated from the memory and its stack frame might be replaced by any
   other called function
 
-### Function `Pointers`
+### 13. Function `Pointers`
 
 - Function pointers is used to store the address of functions
 - So, pointers can point to data & can point to function
@@ -1058,7 +1062,7 @@ int main() {
 ````
 > In  Function `Pointers` & Callbacks part, we will see the real use-cases of function `pointer`
 
-### Function `Pointers` & Callbacks
+### 14. Function `Pointers` & Callbacks
 
 ````cpp
 #include <bits/stdc++.h>
@@ -1183,7 +1187,7 @@ int main() {
 > (again without modifying any code in function `BubbleSort()), this will help me making my code reusable 
 > & becoming a `clean code`
 
-### What Is Memory Leak ? 
+### 15. What Is Memory Leak ? 
 - This phenomenon happened due to improper use of dynamic memory (memory in the heap)
 - As we said before we can free memory in heap using function `free()` in `C` Language & operator `delete` in `C++`
 
@@ -1283,4 +1287,8 @@ void play() {
 ````
 > Each time we call function `play()` we allocate a memory in heap, which will cause a memory lack
 > because we are not deallocating this block of memory, to solve this we have to write `free(Cards)`
-> at the end of the function `play()`
+> at the end of the function `play()
+
+
+## Reference
+[Click Me](https://youtu.be/zuegQmMdy8M)
