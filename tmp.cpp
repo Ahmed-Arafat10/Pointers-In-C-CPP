@@ -2,18 +2,12 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-
+void PrintHello(char *c)
+{
+    printf("Hello %s\n",c);
+}
 int main() {
-    int n;
-    printf("Enter size of the array\n");
-    scanf("%d", &n);
-    int *arr = (int *) malloc(n*sizeof(int));
-    for (int i = 0; i < n; i++) {
-        arr[i] = i+1;
-    }
-    arr = (int*) realloc(arr,n*2*sizeof(int));
-    printf("Address of arr %d , Address of arr2 %d\n",arr,arr2);
-    for (int i = 0; i < n*2; i++) {
-        printf("%d ", arr2[i]);
-    }
+    void (*ptr)(char *);
+    ptr = PrintHello; // ptr = &PrintHello;
+    ptr("Arafat"); // (*ptr)("Arafat");
 }
