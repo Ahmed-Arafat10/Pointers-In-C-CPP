@@ -1184,7 +1184,7 @@ int main() {
 > modifying any lines in the function `BubbleSort()`, the only thing I'm changing is while calling this function
 > in `main()` like this `BubbleSort(arr, n,CompareDESC);`, I'm just changing the name of passed function so then 
 > in this case the function pointer `ptr` will refer to the passed function allowing me to just call that function using my pointer `ptr`
-> (again without modifying any code in function `BubbleSort()), this will help me making my code reusable 
+> (again without modifying any code in function `BubbleSort()), this will help me making my code reusable
 > & becoming a `clean code`
 
 ### 15. What Is Memory Leak ? 
