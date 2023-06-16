@@ -530,26 +530,26 @@ int main() {
 // Using pointer as a parameter
 void MyPrintFun1(char *c)
 {
-while (*c != '\0') {
-printf("%c", *c);
-c++;
-}
-printf("\n");
+    while (*c != '\0') {
+        printf("%c", *c);
+        c++;
+    }
+    printf("\n");
 }
 // Using an array as a parameter
 void MyPrintFun2(char c[]) {
-int i = 0;
-while (c[i] != '\0') {
-printf("%c", c[i]);
-i++;
-}
-printf("\n");
+    int i = 0;
+    while (c[i] != '\0') {
+        printf("%c", c[i]);
+        i++;
+    }
+    printf("\n");
 }
 
 int main() {
-char C[] = "Arafat";
-MyPrintFun1(C);
-MyPrintFun2(C);
+    char C[] = "Arafat";
+    MyPrintFun1(C);
+    MyPrintFun2(C);
 }
 ````
 
