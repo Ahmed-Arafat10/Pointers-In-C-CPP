@@ -572,7 +572,7 @@ int main() {
     printf("%s",C);
 }
 ````
-
+> In C, when you declare a character pointer and assign it a value using double quotes, such as char *C = "Hello";, the resulting string literal is stored in a read-only memory segment. This means that the memory location where the string is stored cannot be modified. <br>
 > The compiler interprets `char* C = "Hello"` as `char C[6] = {'H','e','l','l','o','\0'}`
 
 - If we have a character array & we passed it in a function, we can
