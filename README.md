@@ -653,7 +653,7 @@ int main() {
 ````
 
 - When our program starts, operating system allocates some amount of
-  reserved space for sack like `1MB`,but the actual allocation of the stack frame
+  reserved space for stack like `1MB`,but the actual allocation of the stack frame
   happens during run time, and if our call stack goes beyond reserved memory so then this
   will be called `Stack Over Flow`, then our program will crash (can be happened during recursion without adding
   base condition)
