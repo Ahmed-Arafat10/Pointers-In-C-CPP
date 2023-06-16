@@ -984,7 +984,7 @@ int main() { // Calling function
 
 - In memory the function will be one contiguous block of some instructions,
   the address of a function which is also called `entry point` of a function will
-  be the address of first instruction int that function (address 2016 in below picture)
+  be the address of first instruction in that function (address 206 in below picture)
 - when we say function pointers, we mean pointers that store the starting address or
   `entry point` of block of memory contains all instructions for that function
 
