@@ -751,7 +751,7 @@ int main() {
         - It itself is a generic function that allocate some size of memory, it does not care
           whether you're allocating this memory to store `char` or `int` or any other datatype.
         - It simply returns a `void pointer` to the starting address
-    - `calloc()` - signature/definition of it is like : `void * malloc(size_t num, size_t size)`
+    - `calloc()` - signature/definition of it is like : `void * calloc(size_t num, size_t size)`
         - This means that if you want to allocate an array os size 3 you will type `(int*)malloc(3,sizeof(int))`
         - One main difference between `malloc` & `calloc` is that `malloc` don't initialize the bytes with any values,
           so there might be garbage values, while `calloc` initialize all allocated Bytes to 0
