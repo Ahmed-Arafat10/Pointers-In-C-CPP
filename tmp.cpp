@@ -1,48 +1,42 @@
 // Created by Ahmed Arafat on 1/10/2023.
 #include <bits/stdc++.h>
-
 using namespace std;
-int cash = 100, bet;
 
-void play() {
-    char *Cards = (char *) malloc(3 * sizeof(char));
-    Cards[0] = 'Q';
-    Cards[1] = 'K';
-    Cards[2] = 'J';
-    printf("Shuffling The Cards .....\n");
-    Here:
-    printf("Please Enter The Position Of The Queen 1,2 or 3");
-    int user_pos, pos;
-    scanf("%d", &user_pos);
-    if (!(user_pos >= 1 && user_pos <= 3)) {
-        printf("Please Enter A Valid Number\n");
-        goto Here;
+// 1-D Array
+void Fun1_1(int A[]) {}
+
+void Fun1_2(int *A) {}
+
+// 2-D Array
+void Fun2_1(int B[][2]) {}
+
+void Fun2_2(int (*p)[2]) {}
+
+// 3-D Array
+void Fun3_1(int C[][2][2]) {}
+
+void Fun3_2(int (*p)[2][2]) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 2; j++) {
+            for (int k = 0; k < 2; k++) {
+                //cout<<p[i][j][k]<<" ";
+                cout << *(*((*p + i) + j) + k) << " ";
+            }
+            cout << "\t";
+        }
+        puts("");
     }
-    srand(time(NULL));
-    for (int i = 0; i < 10; i++) {
-        int x = rand() % 3;
-        int y = rand() % 3;
-        int temp = Cards[x];
-        Cards[x] = Cards[y];
-        Cards[y] = Cards[temp];
-    }
-    if (Cards[--user_pos] == 'Q') {
-        printf("You Win ! Congratulations\n");
-        cash += 3 * bet;
-    } else {
-        printf("Wrong Guessing \n");
-        cash -= bet;
-    }
-    printf("Your Cash Now : %d L.E\n", cash);
-    //free(Cards);
 }
 
+// Wrong Syntax
+// void Fun3_2(int ***C) {}
+
 int main() {
-    while (cash) {
-        printf("What Is Your Bet?\n");
-        scanf("%d", &bet);
-        if (bet > cash) printf("You Only Have %d L.E\n", cash);
-        else if (bet <= 0) printf("Enter A Positive Number Please\n");
-        else play();
-    }
+
+    int C[3][2][2] = {{{2, 5}, {7,  9}},
+                      {{3, 4}, {6,  1}},
+                      {{0, 8}, {11, 13}}};
+
+    int (*p)[2][2] = C;
+    Fun3_2(C);
 }

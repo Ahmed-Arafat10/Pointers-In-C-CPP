@@ -619,8 +619,109 @@ int main() {
 
 ### 10. `Pointers` & Multi-Dimensional `Arrays`
 
-<h1>Working On It</h1>
+#### 2-D Array : Means each index in the array refers to another array
+- Carefully observe the following code
+````cpp
+#include <bits/stdc++.h>
+using namespace std;
 
+int main() {
+    int A[2];
+    // A[0] -> refers to an int
+    // A[1] -> refers to an int
+
+    int B[2][3] = {{2, 3, 6},
+                   {4, 5, 8}};
+    // B[0] -> refer to 1-D array of 3 elements
+    // B[1] -> refer to 1-D array of 3 elements
+
+    //int *p = B; // wrong as B will return a pointer to 1-D array of 3 elements, while p points only on an integer
+    int (*p)[3] = B;
+}
+````
+
+- How to access the elements
+````cpp
+    int B[2][3] = {{2, 3, 6},
+                    {4, 5, 8}};
+    // All have the same Output
+    cout << B << " " << B[0] << " " << *B << " " << &B[0] << " " << &B[0][0] << endl; // 400 (element 2)
+    cout<< B+1 << " " << &B[1] << endl; // 400 + size of 1-D array of 3 elements (12) = 400 + 12 = 412 (element 4)
+    cout << *(B + 1) << " " << B[1] << " " << " " << &B[1] << " " << &B[1][0] << endl; // 412 (element 4)
+    // Can't type in the following line B[1][2] as it will return the value
+    cout << *(B + 1) + 2 << " " << B[1] + 2 << " " << &B[1][2] << endl; // 420 (element 8)
+    cout << *(*B + 1) << endl; //404 (element 3)
+````
+> So, For 2-D Array, Accessing an element equation is `B[i][j] = *(B[i] + j) = *( *(B+i) + j)`
+
+#### 3-D Array : Means each index in the array refers to another 2-D array
+- Carefully observe the following code
+````cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    
+    int C[3][2][2] = {{{2, 5}, {7,  9}},
+                      {{3, 4}, {6,  1}},
+                      {{0, 8}, {11, 13}}};
+    
+    int (*p)[2][2] = C;
+   
+    cout << C << " " << C[0] << " " << &C[0][0] << " "; // address 800 (element 2)
+    cout << *(C[0][1] + 1) << " " << C[0][1][1] << " " << &C[0][0] << " "; // address of element 9
+    cout << *(C[1] + 1) << " " << C[1][1] << " " << &C[1][1][0] << " "; // address 824 (element 6)
+    
+}
+````
+> So, For 3-D Array, Accessing an element equation is `B[i][j][k] = *(B[i][j] + k) = *( *(*(B+i) + j) + k)`
+
+#### Pass Multi-Dimensional Array to a Function
+- Let's see the following code
+````cpp
+// Created by Ahmed Arafat on 1/10/2023.
+#include <bits/stdc++.h>
+using namespace std;
+
+// 1-D Array
+void Fun1_1(int A[]) {}
+
+void Fun1_2(int *A) {}
+
+// 2-D Array
+void Fun2_1(int B[][2]) {}
+
+void Fun2_2(int (*p)[2]) {}
+
+// 3-D Array
+void Fun3_1(int C[][2][2]) {}
+
+void Fun3_2(int (*p)[2][2]) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 2; j++) {
+            for (int k = 0; k < 2; k++) {
+                //cout<<p[i][j][k]<<" ";
+                cout << *(*((*p + i) + j) + k) << " ";
+            }
+            cout << "\t";
+        }
+        puts("");
+    }
+}
+
+// Wrong Syntax
+// void Fun3_2(int ***C) {}
+
+int main() {
+
+    int C[3][2][2] = {{{2, 5}, {7,  9}},
+                      {{3, 4}, {6,  1}},
+                      {{0, 8}, {11, 13}}};
+
+    int (*p)[2][2] = C;
+    Fun3_2(C);
+}
+````
 
 ### 11. `Pointers` & Dynamic Memory Allocation
 
